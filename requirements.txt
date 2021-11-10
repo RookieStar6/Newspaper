@@ -2,3 +2,4 @@ beautifulsoup4
 requests
 urllib3
 email==6.0.0a1
+lxml
