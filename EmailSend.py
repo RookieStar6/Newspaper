@@ -19,7 +19,7 @@ class SendEmail:
 
         self.receiver = ['psxcz10@nottingham.ac.uk', 'aqxyz4@nottingham.ac.uk', 'enxsl19@nottingham.ac.uk ',
                          '516874282@qq.com', 'xinyuanfan@outlook.com', '1323850726@qq.com', 'lixyl221@nottingham.ac.uk'
-                         ,'eexxx9@nottingham.ac.uk']
+                         ,'eexxx9@nottingham.ac.uk', 'lixty19@nottingham.ac.uk']
         # self.receiver = ['psxcz10@nottingham.ac.uk', '984397521@qq.com', 'nuaazcx@163.com']
         # self.receiver = ['alycl15@exmail.nottingham.ac.uk']
         self.receiverName = ['Changxin', 'ZHU']
