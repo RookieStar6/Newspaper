@@ -57,7 +57,7 @@ class SendEmail:
         which is published at <i>{self.GBPExchgeDate}</i>(UTC+8). <b>(BANK OF CHINA)</b></p>
 
         <p>Remember to wear a mask and keep social distance, even if you don't care it. Enjoy your day!</p>
-        <p>Here is my personal Home page, welcome to have a trip here--><a href = "https://rookiestar6.github.io">Changxin's home</a> :)</p>
+        <p>Here is my personal Home page, welcome to have a trip here--> <a href = "https://rookiestar6.github.io">Changxin's home</a> :)</p>
         <br></br>
         <p>Best wishes,</p>
         <p>Changxin ZHU</p>"""
