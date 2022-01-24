@@ -2,6 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from datetime import date, timedelta
+import time
 
 
 class SendEmail:
@@ -17,10 +18,10 @@ class SendEmail:
         self.mailUser = '984397521@qq.com'
         self.password = 'pkkmozwrurvdbbad'
 
-        # self.receiver = ['psxcz10@nottingham.ac.uk', 'aqxyz4@nottingham.ac.uk', 'enxsl19@nottingham.ac.uk ',
-        #                  '516874282@qq.com', 'xinyuanfan@outlook.com', '1323850726@qq.com', 'lixyl221@nottingham.ac.uk'
-        #                  ,'eexxx9@nottingham.ac.uk', 'lixty19@nottingham.ac.uk']
-        self.receiver = ['psxcz10@nottingham.ac.uk', '984397521@qq.com', 'nuaazcx@163.com']
+        self.receiver = ['psxcz10@nottingham.ac.uk', 'aqxyz4@nottingham.ac.uk', 'enxsl19@nottingham.ac.uk ',
+                         '516874282@qq.com', 'xinyuanfan@outlook.com', '1323850726@qq.com', 'lixyl221@nottingham.ac.uk'
+                         ,'eexxx9@nottingham.ac.uk', 'lixty19@nottingham.ac.uk']
+        # self.receiver = ['psxcz10@nottingham.ac.uk', '984397521@qq.com', 'nuaazcx@163.com']
         # self.receiver = ['alycl15@exmail.nottingham.ac.uk']
         self.receiverName = ['Changxin', 'ZHU']
 
@@ -28,6 +29,7 @@ class SendEmail:
         today = date.today() + timedelta(days=-1)
         today.ctime()
         self.todayDate = str(today.day) + '/' + str(today.month) + '/' + str(today.year)
+        self.mytime = time.localtime()
         self.EmailText()
 
 
@@ -37,9 +39,11 @@ class SendEmail:
         for i in self.dicNews:
             Newstitle.append(i)
 
-        mailMsg0 = ','.join(self.receiverName)
-        mailMsg1 = f"""<p>Hi, </p><br>
-        <p>Good afternoon! This is an automatic email, please don't reply it.</p>
+        if self.mytime.tm_hour < 12:
+            mailMsg0 = """<p>Good morning! This is an automatic email, please don't reply it.</p>"""
+        else:
+            mailMsg0 = """<p>Good afternoon! This is an automatic email, please don't reply it.</p>"""
+        mailMsg1 = f"""<p>Hi, </p><br>""" + mailMsg0 + f"""
         <p><u><b>Positive Reported Number</b></u></p>
         <p>The daily number of tested people positive reported for <i>last 7 days</i> is <b>{self.NG7weekNum}</b> in the 
         area of <i>NG7 3LP</i>.</p> 
