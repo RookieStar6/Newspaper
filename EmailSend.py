@@ -17,10 +17,10 @@ class SendEmail:
         self.mailUser = '984397521@qq.com'
         self.password = 'pkkmozwrurvdbbad'
 
-        self.receiver = ['psxcz10@nottingham.ac.uk', 'aqxyz4@nottingham.ac.uk', 'enxsl19@nottingham.ac.uk ',
-                         '516874282@qq.com', 'xinyuanfan@outlook.com', '1323850726@qq.com', 'lixyl221@nottingham.ac.uk'
-                         ,'eexxx9@nottingham.ac.uk', 'lixty19@nottingham.ac.uk']
-        # self.receiver = ['psxcz10@nottingham.ac.uk', '984397521@qq.com', 'nuaazcx@163.com']
+        # self.receiver = ['psxcz10@nottingham.ac.uk', 'aqxyz4@nottingham.ac.uk', 'enxsl19@nottingham.ac.uk ',
+        #                  '516874282@qq.com', 'xinyuanfan@outlook.com', '1323850726@qq.com', 'lixyl221@nottingham.ac.uk'
+        #                  ,'eexxx9@nottingham.ac.uk', 'lixty19@nottingham.ac.uk']
+        self.receiver = ['psxcz10@nottingham.ac.uk', '984397521@qq.com', 'nuaazcx@163.com']
         # self.receiver = ['alycl15@exmail.nottingham.ac.uk']
         self.receiverName = ['Changxin', 'ZHU']
 
@@ -39,7 +39,7 @@ class SendEmail:
 
         mailMsg0 = ','.join(self.receiverName)
         mailMsg1 = f"""<p>Hi, </p><br>
-        <p>Good Morning! This is an automatic email, please don't reply it.</p>
+        <p>Good afternoon! This is an automatic email, please don't reply it.</p>
         <p><u><b>Positive Reported Number</b></u></p>
         <p>The daily number of tested people positive reported for <i>last 7 days</i> is <b>{self.NG7weekNum}</b> in the 
         area of <i>NG7 3LP</i>.</p> 
@@ -53,7 +53,7 @@ class SendEmail:
             mailMsg2 += f"""<a href = {self.dicNews[News]}>{News}<a><br>"""
         mailMsg2 += f"""
         <p><u><b>Exchange Rate</b></u></p>
-        <p>The current market price for changing 100 <b>GBP</b> directly for <b>RMB</b> is <b>{self.GBPExchgeRate}</b>, 
+        <p>The current market price for changing 100 <b>GBP</b> directly for <b>CNY</b> is <b>{self.GBPExchgeRate}</b>, 
         which is published at <i>{self.GBPExchgeDate}</i>(UTC+8). <b>(BANK OF CHINA)</b></p>
 
         <p>Remember to wear a mask and keep social distance, even if you don't care it. Enjoy your day!</p>
@@ -74,7 +74,8 @@ class SendEmail:
 
         subject = 'Python SMTP 邮件测试'
         message['Subject'] = Header('Daily hello from Changxin', 'utf-8')
-        message['From'] = ("%s<"+self.sender+">") % (Header(self.sender, 'utf-8'))
+        message['From'] = ("%s<"+self.sender+">") % ("Changxin ZHU")
+        print(message['From'])
         message['To'] = ','.join(self.receiver)
         # mailMsg += mailMsg0
         try:
