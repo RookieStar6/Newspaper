@@ -1,5 +1,7 @@
 import smtplib
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
 from email.header import Header
 from datetime import date, timedelta
 import time
@@ -18,12 +20,20 @@ class SendEmail:
         self.mailUser = '984397521@qq.com'
         self.password = 'pkkmozwrurvdbbad'
 
-        self.receiver = ['psxcz10@nottingham.ac.uk', 'aqxyz4@nottingham.ac.uk', 'enxsl19@nottingham.ac.uk ',
-                         '516874282@qq.com', 'xinyuanfan@outlook.com', '1323850726@qq.com', 'lixyl221@nottingham.ac.uk'
-                         ,'eexxx9@nottingham.ac.uk', 'lixty19@nottingham.ac.uk']
-        # self.receiver = ['psxcz10@nottingham.ac.uk', '984397521@qq.com', 'nuaazcx@163.com']
+        self.receiver = {'psxcz10@nottingham.ac.uk':"Changxin",
+                         'aqxyz4@nottingham.ac.uk':"Yunzhen",
+                         'enxsl19@nottingham.ac.uk ':"Shaozhen",
+                         '516874282@qq.com':"Fubang",
+                         'xinyuanfan@outlook.com':"Xinyuan",
+                         '1323850726@qq.com':"Xuerong",
+                         'lixyl221@nottingham.ac.uk':"Yuxuan",
+                         'eexxx9@nottingham.ac.uk':"Xiaotian",
+                         'lixty19@nottingham.ac.uk':"Tao"}
+        # self.receiver = {'psxcz10@nottingham.ac.uk':"Changxin",
+        #                  '984397521@qq.com':"Cx zhu",
+        #                  'nuaazcx@163.com':"ZHU"}
         # self.receiver = ['alycl15@exmail.nottingham.ac.uk']
-        self.receiverName = ['Changxin', 'ZHU']
+        self.receiverName = {}
 
         self.sender = '984397521@qq.com'
         today = date.today() + timedelta(days=-1)
@@ -43,7 +53,7 @@ class SendEmail:
             mailMsg0 = """<p>Good morning! This is an automatic email, please don't reply it.</p>"""
         else:
             mailMsg0 = """<p>Good afternoon! This is an automatic email, please don't reply it.</p>"""
-        mailMsg1 = f"""<p>Hi, </p><br>""" + mailMsg0 + f"""
+        mailMsg1 = mailMsg0 + f"""
         <p><u><b>Positive Reported Number</b></u></p>
         <p>The daily number of tested people positive reported for <i>last 7 days</i> is <b>{self.NG7weekNum}</b> in the 
         area of <i>NG7 3LP</i>.</p> 
@@ -54,38 +64,73 @@ class SendEmail:
 
         mailMsg2 = """"""
         for News in self.dicNews:
-            mailMsg2 += f"""<a href = {self.dicNews[News]}>{News}<a><br>"""
+            mailMsg2 += f"""<a href = {self.dicNews[News]}>{News}</a><br>"""
         mailMsg2 += f"""
         <p><u><b>Exchange Rate</b></u></p>
         <p>The current market price for changing 100 <b>GBP</b> directly for <b>CNY</b> is <b>{self.GBPExchgeRate}</b>, 
         which is published at <i>{self.GBPExchgeDate}</i>(UTC+8). <b>(BANK OF CHINA)</b></p>
 
-        <p>Remember to wear a mask and keep social distance, even if you don't care it. Enjoy your day!</p>
+        <p>Remember to wear a mask and keep social distance, even if you don't care it. Enjoy your day!</p><br>
         <p>Here is my personal Home page, welcome to have a trip here--> <a href = "https://rookiestar6.github.io">Changxin's home</a> :)</p>
         <br></br>
         <p>Best wishes,</p>
         <p>Changxin ZHU</p>"""
 
         mailMsg = mailMsg1 + mailMsg2
+
+        # mailWish = f"""
+        # <p>朋友们</p></br>
+        # <p>虎年新春即将到来，衷心的祝愿你在新的一年里，所有的期待都能出现，所有的梦想都能实现，所有的希望都能如愿，所有的付出都能兑现，新年快乐!</p>
+        # <p>新的一年，我们都是追梦人!加油!奋斗路上的你!</p></br>
+        # <p>顺颂时祺</p>
+        # <p>朱昶歆</p>
+        # """
         # f"""<a href = {self.dicNews[Newstitle[0]]}>{Newstitle[0]}<a><br>
         # <a href = {self.dicNews[Newstitle[1]]}>{Newstitle[1]}<a><br>
         # <a href = {self.dicNews[Newstitle[2]]}>{Newstitle[2]}<a><br>
         # <a href = {self.dicNews[Newstitle[3]]}>{Newstitle[3]}<a>
 
-        message = MIMEText(mailMsg, 'html', 'utf-8')
-        # message['From'] = Header("菜鸟教程", 'utf-8')
-        # message['To'] = Header("测试", 'utf-8')
+        file = open("./image/head.png", "rb")
 
-        subject = 'Python SMTP 邮件测试'
-        message['Subject'] = Header('Daily hello from Changxin', 'utf-8')
-        message['From'] = ("%s<"+self.sender+">") % ("Changxin ZHU")
-        print(message['From'])
-        message['To'] = ','.join(self.receiver)
+        img_data = file.read()
+        file.close()
+        img = MIMEImage(img_data)
+        img.add_header('Content-ID', '<image1>')
+        # message['To'] = ','.join(self.receiver)
         # mailMsg += mailMsg0
         try:
-            smtpObj = smtplib.SMTP_SSL(self.hostServer)
-            smtpObj.login(self.mailUser, self.password)
-            smtpObj.sendmail(self.sender, message['To'].split(','), message.as_string())
+            for receiver in self.receiver:
+                msg = MIMEMultipart()
+                msg.attach(img)
+                finalMailMsg = f"""
+                <html>
+                <head>
+                </head>
+                <body>
+                <img src = "cid:image1">
+                <p>Dear {self.receiver[receiver]},</p><br>""" + mailMsg + """
+                </body>
+                </html>
+                """
+
+                message = MIMEText(finalMailMsg, 'html', 'utf-8')
+                msg.attach(message)
+                # message['From'] = Header("菜鸟教程", 'utf-8')
+                # message['To'] = Header("测试", 'utf-8')
+
+                subject = 'Python SMTP 邮件测试'
+                # message['Subject'] = Header(f"Daily Hello to {self.receiver[receiver]}", 'utf-8')
+                # message['From'] = ("%s<" + self.sender + ">") % ("Changxin ZHU")
+                # print(self.receiver[receiver])
+                # message['To'] = receiver
+                msg['Subject'] = Header(f"Daily Hello to {self.receiver[receiver]}", 'utf-8')
+                msg['From'] = ("%s<" + self.sender + ">") % ("Changxin ZHU")
+                print(self.receiver[receiver])
+                msg['To'] = receiver
+                smtpObj = smtplib.SMTP_SSL(self.hostServer)
+                smtpObj.login(self.mailUser, self.password)
+                smtpObj.sendmail(self.sender, receiver, msg.as_string())
+                # smtpObj.sendmail(self.sender, message['To'].split(','), message.as_string())
             print("邮件发送成功")
         except smtplib.SMTPException:
             print("Error: 无法发送邮件")
