@@ -8,9 +8,9 @@ import time
 
 
 class SendEmail:
-    def __init__(self, dailyNum, weekNum, NG7weekNum, dicNews, GBPExchgeRate, GBPExchgeDate):
+    def __init__(self, weekNum, NG7weekNum, dicNews, GBPExchgeRate, GBPExchgeDate):
 
-        self.dailyNum = dailyNum
+        # self.dailyNum = dailyNum
         self.weekNum = weekNum
         self.NG7weekNum = NG7weekNum
         self.dicNews = dicNews
@@ -55,10 +55,9 @@ class SendEmail:
             mailMsg0 = """<p>Good afternoon! This is an automatic email, please don't reply it.</p>"""
         mailMsg1 = mailMsg0 + f"""
         <p><u><b>Positive Reported Number</b></u></p>
-        <p>The daily number of tested people positive reported for <i>last 7 days</i> is <b>{self.NG7weekNum}</b> in the 
+        <p>The number of tested people positive reported for <i>last 7 days</i> is <b>{self.NG7weekNum}</b> in the 
         area of <i>NG7 3LP</i>.</p> 
-        <p>The number reported on <i>{self.todayDate}</i> is <b>{self.dailyNum}</b> in Nottingham! 
-        And the positive reported number for <i>last 7 days</i> is <b>{self.weekNum}</b>. </p>
+        <p>The positive reported number on <i>{self.todayDate}</i> for <i>last 7 days</i> is <b>{self.weekNum}</b> in Nottingham. </p>
         <p><u><b>Daily News</b></u></p>
         <p>You might be intersted in the daily News below (from BBC News):</p>"""
 
@@ -90,7 +89,7 @@ class SendEmail:
         # <a href = {self.dicNews[Newstitle[2]]}>{Newstitle[2]}<a><br>
         # <a href = {self.dicNews[Newstitle[3]]}>{Newstitle[3]}<a>
 
-        file = open("./image/head.png", "rb")
+        file = open("./image/head1.png", "rb")
 
         img_data = file.read()
         file.close()

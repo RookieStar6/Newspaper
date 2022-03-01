@@ -30,18 +30,18 @@ class CollectData():
 
         miniCard = obj.find('li', attrs={'class': 'mini-card'})
 
-        node = miniCard.find('span', attrs={'class': 'govuk-link--no-visited-state number-link number'})
+        node = miniCard.find('span', attrs={'class': 'govuk-link--no-visited-state number-link'})
 
         objText = node.contents[0]
-        node1 = miniCard.find('span', attrs={'class': 'govuk-link--no-visited-state number-link'})
-        objText1 = node1.contents[0]
+        # node1 = miniCard.find('span', attrs={'class': 'govuk-link--no-visited-state number-link'})
+        # objText1 = node1.contents[0]
 
         NG7Node = obj.find('ul', attrs={'class': 'govuk-list numbers-container govuk-!-margin-top-2'})
         objText2 =  NG7Node.find('span', attrs={'class': 'govuk-link--no-visited-state number-link number'}).get_text()
 
         objText = re.sub(r'\t|\n','', objText) #去除制表符
         # ret0 = re.search(r'D', objText).span()
-        objText1 = re.sub(r'\t|\n','', objText1)
+        # objText1 = re.sub(r'\t|\n','', objText1)
         # objText1 = ''.join(temp)
         # print(objText1)
         # ret1 = re.search(r'N', objText1).span()
@@ -50,11 +50,11 @@ class CollectData():
         # print(ret1)
         # ret1 = re.search(r'[^Daily]+[$2021]', objText).span()
         print(objText)
-        self.dailyNum = objText
-        self.weekNum = objText1
+        # self.dailyNum = objText
+        self.weekNum = objText
         self.NG7weekNum = objText2
 
-        print(self.dailyNum, self.weekNum, self.NG7weekNum)
+        print(self.weekNum, self.NG7weekNum)
 
     def getNews(self):
         root = "https://www.bbc.co.uk"
