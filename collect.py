@@ -8,10 +8,12 @@ class CollectData():
         self.url = "https://coronavirus.data.gov.uk/search?postcode=NG73LP"
         self.urlNews = "https://www.bbc.co.uk/news/uk"
         self.urlExchgeRate = "https://www.boc.cn/sourcedb/whpj/"
+        self.urlDealmoon = "https://www.dealmoon.co.uk/"
         self.process()
         self.analyze()
         self.getNews()
         self.getExchgeRate()
+        self.getItem()
 
     def process(self):
 
@@ -20,6 +22,7 @@ class CollectData():
         self.r = requests.get(self.url)
         self.rNews = requests.get(self.urlNews)
         self.rExchgeRate = requests.get(self.urlExchgeRate)
+        self.rDealmoon = requests.get(self.urlDealmoon)
         self.rExchgeRate.encoding = 'utf-8'
 
     def analyze(self):
@@ -106,5 +109,21 @@ class CollectData():
         self.GBPExchgeRate = self.GBPExchgeRate.contents[0]
         self.GBPExchgeDate = exchgeLst[GBPnodeInd + 6]
         self.GBPExchgeDate = self.GBPExchgeDate.contents[0]
+
+    def getItem(self):
+        self.itemDic = {}
+        self.itemIntro = {}
+        obj = bf(self.rDealmoon.text, 'lxml')
+        nodeItem = obj.find('div', attrs={'class': 'box_outer'})
+        secNodeItem = nodeItem.find('div', attrs={'class': 'downContent'})
+        lst1 = secNodeItem.find_all(
+            'div', attrs={'class': 'box_item box_item_new'})
+        for item in lst1:
+            if len(self.itemDic) <= 4:
+                itemImg = item.contents[1].contents[1].contents[1].attrs['src']
+                itemHref = item.contents[1].attrs['href']
+                itemIntro = item.contents[1].contents[1].contents[1].attrs['alt']
+                self.itemDic[itemImg] = itemHref
+                self.itemIntro[itemHref] = itemIntro
 
 

@@ -8,7 +8,7 @@ import time
 
 
 class SendEmail:
-    def __init__(self, weekNum, NG7weekNum, dicNews, GBPExchgeRate, GBPExchgeDate):
+    def __init__(self, weekNum, NG7weekNum, dicNews, GBPExchgeRate, GBPExchgeDate, itemImg, itemIntro):
 
         # self.dailyNum = dailyNum
         self.weekNum = weekNum
@@ -16,6 +16,8 @@ class SendEmail:
         self.dicNews = dicNews
         self.GBPExchgeRate = GBPExchgeRate
         self.GBPExchgeDate = GBPExchgeDate
+        self.itemImg = itemImg
+        self.itemIntro = itemIntro
         self.hostServer = 'smtp.qq.com'
         self.mailUser = '984397521@qq.com'
         self.password = 'pkkmozwrurvdbbad'
@@ -63,7 +65,7 @@ class SendEmail:
 
         mailMsg2 = """"""
         for News in self.dicNews:
-            mailMsg2 += f"""<a href = {self.dicNews[News]}>{News}</a><br>"""
+            mailMsg2 += f"""<a style = "color: green" href = {self.dicNews[News]}>{News}</a><br>"""
         mailMsg2 += f"""
         <p><u><b>Exchange Rate</b></u></p>
         <p>The current market price for changing 100 <b>GBP</b> directly for <b>CNY</b> is <b>{self.GBPExchgeRate}</b>, 
@@ -72,11 +74,35 @@ class SendEmail:
         <p>Remember to wear a mask and keep social distance, even if you don't care it. Enjoy your day!</p><br>
         <p>Here is my personal Home page, welcome to have a trip here--> <a href = "https://rookiestar6.github.io">Changxin's home</a> :)</p>
         <br></br>
+        <p>Here are some items you might be looking for: (英国省钱快报)</p>
+        """
+
+
+
+
+        mailMsg3 = f"""
+        <table>
+        <tr>"""
+
+        for itemImg in self.itemImg:
+            mailMsg3 += f"""<td>
+                                <img src = "{itemImg}">
+                            </td>"""
+        mailMsg3 += """</tr>
+        <tr style = "height:15px">"""
+
+        for itemHref in self.itemIntro:
+            mailMsg3 += f"""<td style = "text-align:center">
+                                 <a style = "color: green" href = "{itemHref}">{self.itemIntro[itemHref]}</a>
+                            </td>"""
+        mailMsg3 += """</tr>
+                       </table> 
+                        """
+        mailMsg4 = f"""
         <p>Best wishes,</p>
-        <p>Changxin ZHU</p>"""
-
-        mailMsg = mailMsg1 + mailMsg2
-
+        <p>Changxin ZHU</p>
+        """
+        mailMsg = mailMsg1 + mailMsg2 +mailMsg3 + mailMsg4
         # mailWish = f"""
         # <p>朋友们</p></br>
         # <p>虎年新春即将到来，衷心的祝愿你在新的一年里，所有的期待都能出现，所有的梦想都能实现，所有的希望都能如愿，所有的付出都能兑现，新年快乐!</p>

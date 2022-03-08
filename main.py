@@ -16,6 +16,6 @@ def print_hi(name):
 if __name__ == '__main__':
     # print_hi("PyCharm")
     collectdata = CollectData()
-    sendEmail = SendEmail(collectdata.weekNum, collectdata.NG7weekNum, collectdata.dicNews, collectdata.GBPExchgeRate, collectdata.GBPExchgeDate)
+    sendEmail = SendEmail(collectdata.weekNum, collectdata.NG7weekNum, collectdata.dicNews, collectdata.GBPExchgeRate, collectdata.GBPExchgeDate, collectdata.itemDic, collectdata.itemIntro)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
