@@ -30,7 +30,8 @@ class SendEmail:
                          '1323850726@qq.com':"Xuerong",
                          'lixyl221@nottingham.ac.uk':"Yuxuan",
                          'eexxx9@nottingham.ac.uk':"Xiaotian",
-                         'lixty19@nottingham.ac.uk':"Tao"}
+                         'lixty19@nottingham.ac.uk':"Tao",
+                         "psxql6@nottingham.ac.uk":"Qinyu"}
         # self.receiver = {'psxcz10@nottingham.ac.uk':"Changxin",
         #                  '984397521@qq.com':"Cx zhu",
         #                  'nuaazcx@163.com':"ZHU"}
@@ -115,7 +116,7 @@ class SendEmail:
         # <a href = {self.dicNews[Newstitle[2]]}>{Newstitle[2]}<a><br>
         # <a href = {self.dicNews[Newstitle[3]]}>{Newstitle[3]}<a>
 
-        file = open("./image/head1.png", "rb")
+        file = open("./image/head3.png", "rb")
 
         img_data = file.read()
         file.close()
