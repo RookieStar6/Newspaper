@@ -27,9 +27,6 @@ class CollectData():
 
     def analyze(self):
         obj = bf(self.r.text, 'lxml')
-        # objText = obj.find('span', attrs={'class': 'govuk-link--no-visited-state number-link number'}).get_text()
-        # objText1 = obj.find('span', attrs={'class': 'govuk-link--no-visited-state number-link'}).get_text()
-
 
         miniCard = obj.find('li', attrs={'class': 'mini-card'})
 
@@ -43,21 +40,14 @@ class CollectData():
         objText2 =  NG7Node.find('span', attrs={'class': 'govuk-link--no-visited-state number-link number'}).get_text()
 
         objText = re.sub(r'\t|\n','', objText) #去除制表符
-        # ret0 = re.search(r'D', objText).span()
-        # objText1 = re.sub(r'\t|\n','', objText1)
-        # objText1 = ''.join(temp)
-        # print(objText1)
-        # ret1 = re.search(r'N', objText1).span()
+  
         objText2 = re.sub(r'\t|\n','', objText2)
-        # print(objText2)
-        # print(ret1)
-        # ret1 = re.search(r'[^Daily]+[$2021]', objText).span()
+
         print(objText)
-        # self.dailyNum = objText
+
         self.weekNum = objText
         self.NG7weekNum = objText2
 
-        print(self.weekNum, self.NG7weekNum)
 
     def getNews(self):
         root = "https://www.bbc.co.uk"
@@ -79,24 +69,6 @@ class CollectData():
 
         print(self.dicNews)
 
-
-
-
-        # objText2 = obj.find('span', attrs={'class': 'nw-c-related-items__text gs-u-align-bottom'}).get_text()
-        # url2 = obj.find('a', attrs={'nw-o-link-split__anchor gs-u-pt- gs-u-pb- gs-u-display-block nw-o-link-split__text'}).get("href")
-        # urlNews2 = root + url2
-        #
-        # objText3 = obj.find('span', attrs={'class': 'nw-c-related-items__text gs-u-align-bottom'}).get_text()
-        # url3 = obj.find('a', attrs={
-        #     'nw-o-link-split__anchor gs-u-pt- gs-u-pb- gs-u-display-block nw-o-link-split__text'}).get("href")
-        # urlNews3 = root + url2
-        # print(objText2)
-
-
-
-
-        # ret = re.split(r'Daily', objText)
-        # print(ret)
     def getExchgeRate(self):
         obj = bf(self.rExchgeRate.text, 'lxml')
         nodeGBP = obj.find('div', attrs={'class': 'BOC_main'})
@@ -125,5 +97,3 @@ class CollectData():
                 itemIntro = item.contents[1].contents[1].contents[1].attrs['alt']
                 self.itemDic[itemImg] = itemHref
                 self.itemIntro[itemHref] = itemIntro
-
-
